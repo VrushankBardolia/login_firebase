@@ -66,16 +66,7 @@ class _SignupState extends State<Signup> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text('Already have an Account?'),
-                const SizedBox(width: 8),
-                GestureDetector(
-                  onTap: widget.onTap,
-                  child: Text('Login',
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontWeight: FontWeight.bold
-                    ),
-                  )
-                )
+                TextButton(onPressed: widget.onTap, child: Text('Login'))
               ],
             )
           ],
