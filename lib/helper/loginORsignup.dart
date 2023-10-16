@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:login_firebase/login.dart';
-import 'package:login_firebase/signup.dart';
+import 'package:login_firebase/screens/login.dart';
+import 'package:login_firebase/screens/signup.dart';
 
 class LoginORsignup extends StatefulWidget {
   const LoginORsignup({super.key});
