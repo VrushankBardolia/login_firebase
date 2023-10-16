@@ -7,6 +7,9 @@ class MyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FilledButton(onPressed: onTap, child: Text(name));
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: FilledButton(onPressed: onTap, child: Text(name)),
+    );
   }
 }
