@@ -15,7 +15,7 @@ class Home extends StatelessWidget {
         title: const Text('Home'),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: signOut, icon: Icon(Icons.logout_rounded))
+          IconButton(onPressed: signOut, icon: const Icon(Icons.logout_rounded))
         ],
       ),
       body: Center(child: Text('Welcome ${user.email!}')),
