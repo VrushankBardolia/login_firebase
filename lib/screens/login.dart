@@ -5,8 +5,7 @@ import '../components/myButton.dart';
 import '../components/myTextField.dart';
 
 class Login extends StatefulWidget {
-  final Function()? onTap;
-
+  final Function() onTap;
   const Login({super.key, required this.onTap});
 
   @override
@@ -14,48 +13,48 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
+  final emailCont = TextEditingController();
+  final passwordCont = TextEditingController();
+
+  showAlert(String msg){
+    showDialog(
+        context: context,
+        builder: (context){
+          return AlertDialog(
+            title: Text(msg),
+            actions: [
+              FilledButton(onPressed: (){Navigator.pop(context);},
+                  child: const Text('Okay')
+              )
+            ],
+          );
+        }
+    );
+  }
+
+  login()async{
+    showDialog(context: context, builder: (context) {
+          return const Center(child: CircularProgressIndicator());}
+    );
+    try{
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailCont.text,
+          password: passwordCont.text
+      );
+      Navigator.pop(context);
+    } on FirebaseAuthException catch(e){
+      if(e.code=="user-not-found"){
+        showAlert('No User Found');
+      } else if(e.code=="wrong-password"){
+        showAlert('Wrong password');
+      }
+    }
+    // Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-
-    final emailCont=TextEditingController();
-    final passwordCont=TextEditingController();
-
-    showAlert(String msg){
-      return showDialog(
-          context: context,
-          builder: (context){
-            return AlertDialog(
-                title: Text(msg),
-              actions: [IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.ac_unit_sharp))],
-            );
-          }
-      );
-    }
-
-    login() async{
-      showDialog(
-          context: context,
-          builder: (context){
-            return const Center(child: CircularProgressIndicator());
-          }
-      );
-      try{
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-            email: emailCont.text,
-            password: passwordCont.text
-        );
-        Navigator.pop(context);
-      } on FirebaseAuthException catch(e){
-        if(e.code=="user-not-found"){
-          print('No User Found');
-          // showAlert('No User Found');
-        } else if(e.code=="wrong-password"){
-          showAlert('Wrong password');
-        }
-      }
-      // Navigator.pop(context);
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),

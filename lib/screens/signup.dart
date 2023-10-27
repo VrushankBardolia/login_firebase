@@ -6,7 +6,6 @@ import '../components/myTextField.dart';
 
 class Signup extends StatefulWidget {
   final Function()? onTap;
-
   const Signup({super.key, required this.onTap});
 
   @override
@@ -26,8 +25,7 @@ class _SignupState extends State<Signup> {
         return AlertDialog(
           title: Text(msg),
           actions: [
-            FilledButton(
-              onPressed: (){Navigator.pop(context);},
+            FilledButton(onPressed: (){Navigator.pop(context);},
               child: const Text('Okay')
             )
           ],
@@ -38,10 +36,24 @@ class _SignupState extends State<Signup> {
 
   signUp()async{
     if(passwordCont.text==CpasswordCont.text){
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailCont.text,
-          password: passwordCont.text
-      );
+      try{
+        showDialog(context: context, builder: (context) {
+          return const Center(child: CircularProgressIndicator());}
+        );
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: emailCont.text,
+            password: passwordCont.text
+        );
+        Navigator.pop(context);
+      }
+      on FirebaseAuthException catch(e){
+        if(e.code=='weak-password'){
+          showAlert('Password is Too Weak');
+        }
+        if(e.code=="email-already-in-use"){
+          showAlert('E-mail is already signed in');
+        }
+      }
     }else{
       showAlert('Password & Confirm Password Should Be Same');
     }
