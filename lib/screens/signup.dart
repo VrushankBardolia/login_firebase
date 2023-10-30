@@ -73,7 +73,7 @@ class _SignupState extends State<Signup> {
             MyTextField(controller: emailCont, hint: 'E-mail', password: false,),
             MyTextField(controller: passwordCont, hint: 'Password', password: true,),
             MyTextField(controller: CpasswordCont, hint: 'Confirm Password', password: true,),
-            MyButton(onTap:signUp, name: 'Login',),
+            MyButton(onTap:signUp, name: 'Login'),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
